@@ -21,7 +21,7 @@ Telegram::Bot::Client.run(TOKEN) do |bot|
         markup = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: array)
         bot.api.send_message(
                 chat_id: message.chat.id,
-                text: "all books", reply_markup: markup)  
+                text: "Книги", reply_markup: markup)  
 
 when /^\/authors/
         @creators = Creator.all
@@ -38,12 +38,12 @@ when /^\/authors/
                 
                 bot.api.send_message(
                     chat_id: message.chat.id,
-                    text: "Book: #{@review.book.title}\n Author: #{@review.creator.author}\n Price: #{@review.price}\n  Description: #{@review.description}")
+                    text: "Назва: #{@review.book.title}\n Автор: #{@review.creator.author}\n Ціна: #{@review.price}\n  Опис: #{@review.description}")
                 
             else 
                 bot.api.send_message(
                    chat_id: message.chat.id,
-                   text: "Can't find")
+                   text: "Не можу знайти (")
             end
      
     end
