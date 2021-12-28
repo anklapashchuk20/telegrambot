@@ -1,0 +1,354 @@
+  [1m[35m (4.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "articles"[0m
+  [1m[35m (16.0ms)[0m  [1m[35mCREATE TABLE "articles" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar, "description" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (10.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_book_id" ON "articles" ("book_id")[0m
+  [1m[35m (11.4ms)[0m  [1m[35mCREATE INDEX "index_articles_on_creator_id" ON "articles" ("creator_id")[0m
+  [1m[35m (8.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_seller_id" ON "articles" ("seller_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "books"[0m
+  [1m[35m (12.1ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "rating" integer, "title" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "creators"[0m
+  [1m[35m (9.4ms)[0m  [1m[35mCREATE TABLE "creators" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "author" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "sellers"[0m
+  [1m[35m (11.5ms)[0m  [1m[35mCREATE TABLE "sellers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "vendor" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aarticles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_seller_id" ON "aarticles" ("seller_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_creator_id" ON "aarticles" ("creator_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_book_id" ON "aarticles" ("book_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "aarticles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "articles"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "articles"[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE TABLE "articles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_99b5b2e73a"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_book_id" ON "articles" ("book_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_articles_on_creator_id" ON "articles" ("creator_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE INDEX "index_articles_on_seller_id" ON "articles" ("seller_id")[0m
+  [1m[35m (1.4ms)[0m  [1m[32mINSERT INTO "articles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "aarticles"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "aarticles"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (75.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aarticles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_seller_id" ON "aarticles" ("seller_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_creator_id" ON "aarticles" ("creator_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_book_id" ON "aarticles" ("book_id")[0m
+  [1m[35m (9.4ms)[0m  [1m[32mINSERT INTO "aarticles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "articles"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "articles"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "articles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_99b5b2e73a"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_390746bdf0"
+FOREIGN KEY ("creator_id")
+  REFERENCES "creators" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_book_id" ON "articles" ("book_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_articles_on_creator_id" ON "articles" ("creator_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_articles_on_seller_id" ON "articles" ("seller_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "articles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "aarticles"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "aarticles"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (42.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aarticles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_seller_id" ON "aarticles" ("seller_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_creator_id" ON "aarticles" ("creator_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_book_id" ON "aarticles" ("book_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aarticles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "articles"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "articles"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "articles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_390746bdf0"
+FOREIGN KEY ("creator_id")
+  REFERENCES "creators" ("id")
+, CONSTRAINT "fk_rails_99b5b2e73a"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_2173a95caf"
+FOREIGN KEY ("seller_id")
+  REFERENCES "sellers" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_book_id" ON "articles" ("book_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_creator_id" ON "articles" ("creator_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_articles_on_seller_id" ON "articles" ("seller_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "articles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "aarticles"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "aarticles"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (6.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (11.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (11.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20211226111124)[0m
+  [1m[35m (10.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20211226110918),
+(20211226111031),
+(20211226111056);
+
+[0m
+  [1m[35m (16.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "test"], ["created_at", "2021-12-27 17:32:49.151311"], ["updated_at", "2021-12-27 17:32:49.151311"]]
+  [1m[36mTRANSACTION (7.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "df365c08bd1ab130231de68ac7fed7a041ddc0da"], ["created_at", "2021-12-27 17:32:49.167251"], ["updated_at", "2021-12-27 17:32:49.167251"]]
+  [1m[36mTRANSACTION (7.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (6.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "articles"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "articles"[0m
+  [1m[35m (84.4ms)[0m  [1m[35mCREATE TABLE "articles" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar, "description" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (81.5ms)[0m  [1m[35mCREATE TABLE "articles" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar, "description" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (14.2ms)[0m  [1m[35mCREATE INDEX "index_articles_on_book_id" ON "articles" ("book_id")[0m
+  [1m[35m (20.6ms)[0m  [1m[35mCREATE INDEX "index_articles_on_book_id" ON "articles" ("book_id")[0m
+  [1m[35m (19.9ms)[0m  [1m[35mCREATE INDEX "index_articles_on_creator_id" ON "articles" ("creator_id")[0m
+  [1m[35m (21.2ms)[0m  [1m[35mCREATE INDEX "index_articles_on_creator_id" ON "articles" ("creator_id")[0m
+  [1m[35m (23.7ms)[0m  [1m[35mCREATE INDEX "index_articles_on_seller_id" ON "articles" ("seller_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "books"[0m
+  [1m[35m (25.6ms)[0m  [1m[35mCREATE INDEX "index_articles_on_seller_id" ON "articles" ("seller_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "books"[0m
+  [1m[35m (17.8ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "rating" integer, "title" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "creators"[0m
+  [1m[35m (19.9ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "rating" integer, "title" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "creators"[0m
+  [1m[35m (16.8ms)[0m  [1m[35mCREATE TABLE "creators" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "author" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "sellers"[0m
+  [1m[35m (15.3ms)[0m  [1m[35mCREATE TABLE "creators" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "author" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "sellers"[0m
+  [1m[35m (18.1ms)[0m  [1m[35mCREATE TABLE "sellers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "vendor" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.3ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (18.0ms)[0m  [1m[35mCREATE TABLE "sellers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "vendor" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aarticles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_seller_id" ON "aarticles" ("seller_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aarticles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_creator_id" ON "aarticles" ("creator_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_book_id" ON "aarticles" ("book_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aarticles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "articles"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_seller_id" ON "aarticles" ("seller_id")[0m
+  [1m[35m (2.2ms)[0m  [1m[35mDROP TABLE "articles"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_creator_id" ON "aarticles" ("creator_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "articles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_99b5b2e73a"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_book_id" ON "aarticles" ("book_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aarticles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "articles"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_book_id" ON "articles" ("book_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_articles_on_creator_id" ON "articles" ("creator_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_seller_id" ON "articles" ("seller_id")[0m
+  [1m[35m (5.9ms)[0m  [1m[35mDROP TABLE "articles"[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "articles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "aarticles"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "aarticles"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "articles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_99b5b2e73a"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_articles_on_book_id" ON "articles" ("book_id")[0m
+  [1m[36mTRANSACTION (10.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_creator_id" ON "articles" ("creator_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_articles_on_seller_id" ON "articles" ("seller_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aarticles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "articles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "aarticles"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "aarticles"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_seller_id" ON "aarticles" ("seller_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_creator_id" ON "aarticles" ("creator_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_book_id" ON "aarticles" ("book_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aarticles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "articles"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "articles"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "articles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_99b5b2e73a"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_390746bdf0"
+FOREIGN KEY ("creator_id")
+  REFERENCES "creators" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_book_id" ON "articles" ("book_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_articles_on_creator_id" ON "articles" ("creator_id")[0m
+  [1m[36mTRANSACTION (23.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_articles_on_seller_id" ON "articles" ("seller_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "articles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "aarticles"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "aarticles"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aarticles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (8.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_seller_id" ON "aarticles" ("seller_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aarticles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_creator_id" ON "aarticles" ("creator_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_seller_id" ON "aarticles" ("seller_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_book_id" ON "aarticles" ("book_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_creator_id" ON "aarticles" ("creator_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aarticles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "articles"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_book_id" ON "aarticles" ("book_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aarticles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "articles"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "articles"[0m
+  [1m[35m (5.7ms)[0m  [1m[35mDROP TABLE "articles"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "articles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_390746bdf0"
+FOREIGN KEY ("creator_id")
+  REFERENCES "creators" ("id")
+, CONSTRAINT "fk_rails_99b5b2e73a"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_2173a95caf"
+FOREIGN KEY ("seller_id")
+  REFERENCES "sellers" ("id")
+)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "articles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_99b5b2e73a"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_390746bdf0"
+FOREIGN KEY ("creator_id")
+  REFERENCES "creators" ("id")
+)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE INDEX "index_articles_on_book_id" ON "articles" ("book_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_creator_id" ON "articles" ("creator_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_seller_id" ON "articles" ("seller_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "articles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "aarticles"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "aarticles"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (12.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aarticles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_seller_id" ON "aarticles" ("seller_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_creator_id" ON "aarticles" ("creator_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aarticles_on_book_id" ON "aarticles" ("book_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aarticles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "articles"[0m
+  [1m[35m (8.7ms)[0m  [1m[35mDROP TABLE "articles"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_articles_on_book_id" ON "articles" ("book_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "articles" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "creator_id" integer NOT NULL, "seller_id" integer NOT NULL, "price" varchar DEFAULT NULL, "description" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_390746bdf0"
+FOREIGN KEY ("creator_id")
+  REFERENCES "creators" ("id")
+, CONSTRAINT "fk_rails_99b5b2e73a"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_2173a95caf"
+FOREIGN KEY ("seller_id")
+  REFERENCES "sellers" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_creator_id" ON "articles" ("creator_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_articles_on_seller_id" ON "articles" ("seller_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "articles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "aarticles"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "aarticles"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (8.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (11.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (8.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20211226111124)[0m
+  [1m[35m (8.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20211226110918),
+(20211226111031),
+(20211226111056);
+
+[0m
+  [1m[35m (9.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_book_id" ON "articles" ("book_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_articles_on_creator_id" ON "articles" ("creator_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_articles_on_seller_id" ON "articles" ("seller_id")[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "test"], ["created_at", "2021-12-27 17:32:49.866909"], ["updated_at", "2021-12-27 17:32:49.866909"]]
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "articles" ("id","book_id","creator_id","seller_id","price","description","created_at","updated_at")
+                     SELECT "id","book_id","creator_id","seller_id","price","description","created_at","updated_at" FROM "aarticles"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "aarticles"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (11.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (9.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "df365c08bd1ab130231de68ac7fed7a041ddc0da"], ["created_at", "2021-12-27 17:32:49.891474"], ["updated_at", "2021-12-27 17:32:49.891474"]]
+  [1m[36mTRANSACTION (11.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (20.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (22.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20211226111124)[0m
+  [1m[35m (27.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20211226110918),
+(20211226111031),
+(20211226111056);
+
+[0m
+  [1m[35m (11.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "test"], ["created_at", "2021-12-27 17:32:50.032266"], ["updated_at", "2021-12-27 17:32:50.032266"]]
+  [1m[36mTRANSACTION (80.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "df365c08bd1ab130231de68ac7fed7a041ddc0da"], ["created_at", "2021-12-27 17:32:50.132363"], ["updated_at", "2021-12-27 17:32:50.132363"]]
+  [1m[36mTRANSACTION (11.3ms)[0m  [1m[36mcommit transaction[0m
